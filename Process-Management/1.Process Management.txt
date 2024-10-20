@@ -1,0 +1,55 @@
+1.Process Management
+1.1- process
+A process is compiled source code that is currently running on the system.
+1.2- PID
+All processes have a process id or PID.
+1.3- PPID
+Every process has a parent process (with a PPID). The child process is often started by the
+parent process.
+1.4- init
+The init process always has process ID 1. The init process is started by the kernel itself so
+technically it does not have a parent process. init serves as a foster parent for orphaned
+processes.
+1.5- kill
+When a process stops running, the process dies, when you want a process to die, you kill it.
+1.6- daemon
+Processes that start at system startup and keep running forever are called daemon processes
+or daemons. These daemons never die.
+1.7- zombie
+When a process is killed, but it still shows up on the system, then the process is referred to
+as zombie. You cannot kill zombies, because they are already dead.
+
+some command:
+#echo $$ $PPID (to check current Process ID and Parent PID)
+#ps (To check total Running Process including Background Process)
+#Kill -9 14761 (process id ) is called sure kill
+#kill -1 1 (command forces the init process)
+
+Some relevant Questions and answer.
+----------------------------------
+1. Use the jobs command to verify whether you have any processes running in background.
+#jobs 
+2. Use vi to create a little text file. Suspend vi in background.
+#vi text.txt
+(inside vi press ctrl-z)
+3. Verify with jobs that vi is suspended in background.
+[paul@rhel53 ~]$ jobs
+[1]+ Stopped vim text.txt
+4. Start find / > allfiles.txt 2>/dev/null in foreground. Suspend it in background before it
+finishes.
+[paul@rhel53 ~]$ find / > allfiles.txt 2>/dev/null
+ (press ctrl-z)
+[2]+ Stopped find / > allfiles.txt 2> /dev/null
+5. Start two long sleep processes in background.
+sleep 4000 & ; sleep 5000 &
+sleep 4000 & ( for single long sleep )
+6. Display all jobs in background.
+[paul@rhel53 ~]$ jobs
+[1]- Stopped vim text.txt
+[2]+ Stopped find / > allfiles.txt 2> /dev/null
+[3] Running sleep 4000 &
+[4] Running sleep 5000 &
+7. Use the kill command to suspend the last sleep process.
+[paul@rhel53 ~]$ kill -SIGSTOP 4532
+
+

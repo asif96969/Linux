@@ -1,0 +1,14 @@
+[asjf@localhost ~]$ lsblk
+[root@localhost asjf]# fdisk /dev/nvme0n2
+Command (m for help): n
+[root@localhost asjf]# partprobe /dev/nvme0n2
+The partprobe command is used to inform the operating system of changes made to partition tables. When you run partprobe /dev/nvme0n2, you're instructing the system to re-read the partition table for the specified NVMe device.
+[root@localhost asjf]# mkfs.xfs /dev/nvme0n2p1
+Format the nvme0n2p1 partition
+[root@localhost asjf]# mkdir /diskmount
+[root@localhost asjf]# mount /dev/nvme0n2p1 /diskmount/
+[root@localhost asjf]# vim /etc/fstab
+/dev/nvme0n2p1	/diskmount	xfs	default	0	0
+[root@localhost asjf]# mount -a  
+
+

@@ -1,0 +1,25 @@
+Simplified Storage Management
+----------------------------
+Stratis provides a more user-friendly interface for managing complex storage configurations, allowing users to create and manage pools, volumes, and filesystems with straightforward commands.
+----------------------------
+yum install stratisd stratis-cli
+systemctl status stratisd
+systemctl start stratisd
+systemctl enable stratisd
+systemctl status stratisd
+stratis pool create pool1 /dev/nvme0n3
+stratis pool list
+
+[root@localhost asjf]# stratis pool create pool1 /dev/nvme0n3
+[root@localhost asjf]# stratis pool create pool1 /dev/nvme0n4
+[root@localhost asjf]# stratis pool list
+Name           Total / Used / Free    Properties                                   UUID   Alerts
+pool1   3 GiB / 524 MiB / 2.49 GiB   ~Ca,~Cr, Op   49ce46ea-a35e-4252-8f4b-e74a3dd52cab   WS001 
+pool2   2 GiB / 524 MiB / 1.49 GiB   ~Ca,~Cr, Op   aa9a347c-eeca-46cf-be36-a96d5c52d649   WS001
+
+Mkdir mnt
+vim /etc/fstab
+UUID=49ce46ea-a35e-4252-8f4b-e74a3dd52cab /mnt	xfs	defaults,x-systemd.requires=stratisd.service	0 0
+UUID=aa9a347c-eeca-46cf-be36-a96d5c52d649 /mnt  xfs     defaults,x-systemd.requires=stratisd.service    0 0
+
+mount -a

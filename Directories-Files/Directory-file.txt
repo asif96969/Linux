@@ -1,0 +1,53 @@
+Directories	Description
+ /bin	 	binary or executable programs.
+/etc		system configuration files.
+/home		home directory. It is the default current directory.
+/opt		optional or third-party software.
+/tmp		temporary space, typically cleared on reboot.
+/usr	 	User related programs.
+/var 		log files.
+Directories 	Description
+/boot		It contains all the boot-related information files and folders such as conf, grub, etc.
+/dev		It is the location of the device files such as dev/sda1, dev/sda2, etc.
+/lib		It contains kernel modules and a shared library.
+/lost+found	It is used to find recovered bits of corrupted files.
+/media		It contains subdirectories where removal media devices are inserted.
+/mnt		It contains temporary mount directories for mounting the file system.
+/proc		It is a virtual and pseudo-file system to contains info about the running processes with a specific process ID or PID.
+/run		It stores volatile runtime data.
+/sbin		binary executable programs for an administrator.
+/srv 		It contains server-specific and server-related files.
+/sys		It is a virtual file system for modern Linux distributions to store and allows modification of the devices connected to the system
+
+Configuration Files	Description
+/etc/bashrc		It is used by bash shell that contains system defaults and aliases.
+/etc/crontab		A shell script to run specified commands on a predefined time interval.
+/etc/exports		It contains information on the file system available on the network.
+/etc/fstab		Information of the Disk Drive and their mount point.
+/etc/group	 	It is a text file to define Information of Security Group.
+/etc/grub.conf		It is the grub bootloader configuration file.
+/etc/init.d	        Service startup Script.
+/etc/lilo.conf 	 	It contains lilo bootloader configuration file.
+/etc/hosts	 	Information of IP and corresponding hostnames
+/etc/hosts.allow	It contains a list of hosts allowed accessing services on the local machine.
+/etc/host.deny	 	List of hosts denied accessing services on the local machine.
+/etc/inittab	 	INIT process and their interaction at the various run levels.
+/etc/issue		Allows editing the pre-login message.
+/etc/modules.conf	It contains the configuration files for the system modules.
+/etc/motd	 	It contains the message of the day.
+/etc/mtab 		Currently mounted blocks information.
+/etc/passwd 	 	It contains username, password of the system, users in a shadow file.
+/etc/printcap 	 	It contains printer Information.
+/etc/profile	 	Bash shell defaults.
+/etc/profile.d		It contains other scripts like application scripts, executed after login.
+/etc/rc.d	 	It avoids script duplication.
+/etc/rc.d/init.d	Run Level Initialisation Script.
+/etc/resolv.conf	DNS being used by System.
+/etc/security	 	It contains the name of terminals where root login is possible.
+/etc/skel		Script that initiates new user home directory.
+/etc/termcap		An ASCII file that defines the behavior of different types of the terminal.
+/etc/X11		Directory tree contains all the conf files for the X-window System.
+
+
+
+---------------

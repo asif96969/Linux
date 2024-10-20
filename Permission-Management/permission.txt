@@ -1,0 +1,133 @@
+Question: Create a Group named newgroup
+a)	Create a user harsh and make newgroup as the secondary group
+b)	Create a user nitin, do not add to newgroup as the secondary group. Nitin should have no login shell
+c)	Assign all the above user password “redhat”
+====================================================================================
+a)
+useradd harsh
+cat /etc/passwd
+groupadd newgroup
+ cat /etc/group
+usermod -aG newgroup harsh  [ here harsh secondary group is newgroup and it primary group is harsh     itself]
+cat /etc/group
+
+b)
+useradd nitin -s /sbin/nologin
+cat /etc/passwd
+asjf:x:1000:1000:Asjf:/home/asjf:/bin/bash
+harsh:x:1001:1002::/home/harsh:/bin/bash
+nitin:x:1002:1003::/home/nitin:/sbin/nologin
+c)
+[root@localhost ~]# passwd harsh
+Changing password for user harsh.
+New password:
+
+====================================================================================
+Question: Copy the file /etc/fstab to /var/fstab
+a)	The user owner of /var/fstab shuld be root
+b)	The user natasha should have read and write access
+c)	The group Mac should have no access
+
+====================================================================================
+a)
+
+[root@localhost ~]# cp /etc/fstab /var/fstab
+[root@localhost ~]# ls -l /var/fstab
+-rw-r--r--. 1 root root 579 Oct 10 10:05 /var/fstab
+
+b)
+[root@localhost ~]# getfacl /var/fstab 
+getfacl: Removing leading '/' from absolute path names
+# file: var/fstab
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r—
+
+[root@localhost ~]# setfacl -m u:natasha:rw- /var/fstab 
+[root@localhost ~]# getfacl /var/fstab 
+getfacl: Removing leading '/' from absolute path names
+# file: var/fstab
+# owner: root
+# group: root
+user::rw-
+user:natasha:rw-
+group::r--
+mask::rw-
+other::r--
+
+c)
+[root@localhost ~]# setfacl -m g:Mac:--- /var/fstab [here m = modification and g = group, group name=Mac]
+[root@localhost ~]# getfacl /var/fstab 
+getfacl: Removing leading '/' from absolute path names
+# file: var/fstab
+# owner: root
+# group: root
+user::rw-
+user:natasha:rw-
+group::r--
+group:Mac:---
+mask::rw-
+other::r--
+
+
+=============================================================================
+Question: create a directory /linux
+a)	Make the group owner to be Mac and
+b)	Ensure that all files within /linux, the group owner is Mac
+c)	Ensure that for all future files within /linux the group owner is Mac
+d)	Ensure that no user other that the user-owner of /linux is able to delete the content within /linux 
+===========================================================================
+a)
+[root@localhost asjf]# mkdir linux
+[root@localhost asjf]# chown root:Mac linux
+drwxr-xr-x. 2 nitin Mac  6 Oct 10 10:55 linux
+b)
+[root@localhost asjf]# touch linux/fi1
+[root@localhost asjf]# mkdir linux/di1
+[root@localhost asjf]# ls -l linux/
+total 0
+drwxr-xr-x. 2 root root 6 Oct 10 11:01 di1
+-rw-r--r--. 1 root root 0 Oct 10 11:01 fi1
+[root@localhost asjf]# chown -R :Mac linux/  [ R=Recursive means under all the dir and file of linux]
+[root@localhost asjf]# ls -l linux/
+total 0
+drwxr-xr-x. 2 root Mac 6 Oct 10 11:01 di1
+-rw-r--r--. 1 root Mac 0 Oct 10 11:01 fi1
+c)
+[root@localhost asjf]# touch linux/fi2
+[root@localhost asjf]# ls -l linux/
+total 0
+drwxr-xr-x. 2 root Mac  6 Oct 10 11:01 di1
+-rw-r--r--. 1 root Mac  0 Oct 10 11:01 fi1
+-rw-r--r--. 1 root root 0 Oct 10 11:05 fi2
+[root@localhost asjf]# chmod g+s linux/   
+[The command chmod g+s is used to set the setgid (Set Group ID) bit on a directory or file in Linux. 
+This command affects how new files and directories are created within a specified directory.]
+[root@localhost asjf]# touch linux/di2
+[root@localhost asjf]# touch linux/fi3
+[root@localhost asjf]# mkdir linux/di2
+[root@localhost asjf]# mkdir linux/di3	
+[root@localhost asjf]# ls -l linux/
+total 0
+drwxr-xr-x. 2 root Mac  6 Oct 10 11:01 di1
+-rw-r--r--. 1 root Mac  0 Oct 10 11:08 di2
+drwxr-sr-x. 2 root Mac  6 Oct 10 11:08 di3
+
+[r-s:
+•	The group has read (r) and execute (x) permissions, but the s indicates that the setgid (Set Group ID) bit is set. This means:
+o	Any new files created within this directory will inherit the group of the directory rather than the user's current group
+]
+
+-rw-r--r--. 1 root Mac  0 Oct 10 11:01 fi1
+-rw-r--r--. 1 root root 0 Oct 10 11:05 fi2
+-rw-r--r--. 1 root Mac  0 Oct 10 11:08 fi3
+
+d)
+[root@localhost asjf]# ls -ld linux/
+drwxr-sr-x. 4 root Mac 72 Oct 10 11:08 linux/
+[root@localhost asjf]# chmod +t linux/
+[root@localhost asjf]# ls -ld linux/
+drwxr-sr-t. 4 root Mac 72 Oct 10 11:08 linux/
+

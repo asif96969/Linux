@@ -1,0 +1,38 @@
+Network Management:
+
+IP configure:
+
+asif@asif:~$ cat /etc/netplan/00-installer-config.yaml 
+# This is the network config written by 'subiquity'
+network:
+  version: 2
+  renderer: networkd
+    ethernets:
+    ens33:
+      dhcp4: no
+      addresses:
+              - 192.168.64.135/24
+      routes:
+              -to: default
+              via: 192.168.64.1
+      nameservers:
+              addresses: [8.8.8.8, 8.8.4.4]
+-------------------------------------------
+Explanation:
+•	network: The top-level keyword indicating that this is a Netplan network configuration file.
+•	version: 2: Specifies the Netplan configuration syntax version.
+•	renderer: networkd: Specifies the network renderer to use. In this case, it's set to use systemd-networkd.
+•	ethernets: Defines Ethernet (network interface) configurations.
+•	ens33: The name of the Ethernet interface. You may need to adjust this based on your actual interface name.
+•	dhcp4: no: Disables DHCP for IPv4 on this interface.
+•	addresses: [192.168.10.245/24]: Configures a static IPv4 address of 192.168.10.245 with a subnet mask of 24 (implying a subnet mask of 255.255.255.0).
+•	routes: Configures a static route.
+o	to: default: Specifies that this is the default route.
+o	via: 192.168.10.1: Specifies the gateway for the default route.
+•	nameservers: Configures DNS (name servers) settings.
+o	addresses: [8.8.8.8, 8.8.4.4]: Sets Google's public DNS servers (8.8.8.8 and 8.8.4.4) as the DNS servers to be used.
+-------------------------------------------
+
+asif@asif:~$ip add
+
+

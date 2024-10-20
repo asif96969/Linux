@@ -1,0 +1,23 @@
+NTP Config
+
+[root@localhost asjf]# timedatectl
+---------------------------
+[root@localhost asjf]# ls /etc/ | grep chro
+chromium
+chrony.conf
+chrony.keys
+---------------------
+[root@localhost asjf]# vim /etc/chrony.conf 
+server 103.117.192.69 iburst
+---------------------
+[root@localhost etc]# systemctl restart chronyd
+[root@localhost etc]# chronyc sources -c
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+^? 103.117.192.69                0   6     0     -     +0ns[   +0ns] +/-    0ns
+
+--------------------
+[root@localhost asjf]# systemctl status chronyd
+● chronyd.service - NTP client/server
+     Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2024-10-17 12:38:14 EDT; 13h ago

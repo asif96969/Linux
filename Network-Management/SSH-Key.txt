@@ -1,0 +1,30 @@
+At SSH Server need to install openssh-server
+asif@asif:~$sudo apt install openssh-server
+check SSH file:
+asif@asif:~$vim .ssh/ssh_config
+
+Normal SSH from Local :
+#ssh user@server_ip port
+
+ssh user public and private Key:
+•	step 1: 
+Need to generate ssh key,
+C:\Users\Administrator>ssh-keygen
+a public and private key will be generated at .ssh directory.
+•	step 1:
+copy and past public Key at remote server
+vim  .ssh/authorized_keys
+or,
+ssh-copy-id username@hostname
+•	step 3:
+Add the following lines, replacing "hostname" with your remote host's address and "key" with the path to your private key.
+Host myhost
+  HostName hostname/ip
+  User username
+  Port 5439
+  IdentityFile ~/.ssh/key
+•	Step 4
+ssh myhost
+
+
+
